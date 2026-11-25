@@ -299,6 +299,8 @@ def fit_safe(plan_path):
                 continue
             probe = max(subs, key=lambda e: len(e.get("text", "")))
         probe.setdefault("type", "text")
+        if probe["type"] == "card":
+            probe.setdefault("glass", True)
         for _ in range(25):
             box = TextElement(probe).extents()
             if box is None:

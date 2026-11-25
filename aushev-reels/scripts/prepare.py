@@ -50,7 +50,7 @@ def target_size(w, h):
     return tw, th
 
 
-def detect_cuts(path, dur, thr=0.32):
+def detect_cuts(path, dur, thr=0.2):
     """Scene-change detection on a small proxy (fast)."""
     cmd = ["ffmpeg", "-v", "info", "-i", path, "-vf",
            f"scale=180:-2,select='gt(scene,{thr})',showinfo", "-an", "-f", "null", "-"]

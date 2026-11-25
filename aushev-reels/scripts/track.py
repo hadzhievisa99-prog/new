@@ -31,7 +31,7 @@ if not _OK:   # OpenCV 5 removed Haar cascades -> install 4.x once and restart t
     os.environ["AUSHEV_CV_RETRY"] = "1"
     os.execv(sys.executable, [sys.executable] + sys.argv)
 
-PROXY_W = 400
+PROXY_H = 720   # analysis height: small faces in wide/landscape shots stay detectable
 
 
 def detectors():
@@ -42,9 +42,9 @@ def detectors():
 
 
 def detect(gray, face_c, eye_c, prof_c, prev):
-    faces = face_c.detectMultiScale(gray, 1.1, 5, minSize=(gray.shape[1] // 10,) * 2)
+    faces = face_c.detectMultiScale(gray, 1.1, 5, minSize=(gray.shape[0] // 18,) * 2)
     if len(faces) == 0:
-        faces = prof_c.detectMultiScale(gray, 1.1, 5, minSize=(gray.shape[1] // 10,) * 2)
+        faces = prof_c.detectMultiScale(gray, 1.1, 5, minSize=(gray.shape[0] // 18,) * 2)
     if len(faces) == 0:
         return None
     if prev is not None:   # prefer the face closest to the previous one, then the largest
@@ -85,13 +85,17 @@ def main():
     ap.add_argument("--budget", type=float, default=240)
     ap.add_argument("--step", type=int, default=2)
     ap.add_argument("--smooth", type=float, default=0.35, help="smoothing sigma in seconds")
+    ap.add_argument("--set", action="append", default=[],
+                    help="manual eyes for a source time range (cartoons, masks, no face): "
+                         "START-END:X,Y,D in prepared-source px; saved in work/track_overrides.json")
     a = ap.parse_args()
     P = work_paths(a.work)
     meta = load_json(P["meta"])
     B = Budget(a.budget)
     N, pw, ph = meta["frames"], meta["pw"], meta["ph"]
-    k = PROXY_W / pw
+    k = min(1.0, PROXY_H / ph)
     qh = int(round(ph * k / 2) * 2)
+    PROXY_W = int(round(pw * k / 2) * 2)
     raw_p = os.path.join(a.work, "track_raw.npz")
     if os.path.exists(raw_p):
         z = np.load(raw_p)
@@ -132,7 +136,13 @@ def main():
     for s, e in zip(cuts, cuts[1:]):
         if e <= s:
             continue
-        seg, v = data[s:e], found[s:e]
+        seg, v = data[s:e].copy(), found[s:e].copy()
+        if v.sum() >= 3:   # reject outliers (other 'faces', transition garbage) far from the shot median
+            med = np.nanmedian(seg[:, :3], 0)
+            dist = np.hypot(seg[:, 0] - med[0], seg[:, 1] - med[1])
+            bad = v & ((dist > 1.2 * med[2]) | (np.abs(seg[:, 2] - med[2]) > 0.5 * med[2]))
+            v &= ~bad
+            seg[bad] = np.nan
         cols = []
         for c in range(3):
             sm = smooth(seg[:, c], v, a.smooth * FPS / 1.0) if v.sum() >= 2 else None
@@ -140,6 +150,19 @@ def main():
                 sm = np.full(e - s, [pw / 2, ph * 0.36, pw * 0.11][c], np.float32)
             cols.append(sm)
         out[s:e] = np.stack(cols, 1)
+    ov_p = os.path.join(a.work, "track_overrides.json")
+    overrides = load_json(ov_p, []) or []
+    for spec in a.set:
+        rng, vals = spec.split(":")
+        t0, t1 = (float(x) for x in rng.split("-"))
+        x, y, d = (float(v) for v in vals.split(","))
+        overrides = [o for o in overrides if not (o["start"] == t0 and o["end"] == t1)]
+        overrides.append({"start": t0, "end": t1, "x": x, "y": y, "d": d})
+    if a.set:
+        save_json(ov_p, overrides)
+    for o in overrides:
+        f0, f1 = int(round(o["start"] * FPS)), min(N, int(round(o["end"] * FPS)))
+        out[f0:f1] = [o["x"], o["y"], o["d"]]
     rate = float(found[::a.step].mean()) if N else 0
     save_json(P["track"], {"fps": FPS, "frames": N, "detect_rate": round(rate, 3),
                            "eye_x": [round(float(v), 1) for v in out[:, 0]],
