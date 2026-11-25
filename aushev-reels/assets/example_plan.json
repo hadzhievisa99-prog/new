@@ -1,0 +1,61 @@
+{
+ "_comment": "Пример со ВСЕМИ эффектами (15-секундный ролик, лицо крупно, поэтому титры ниже подбородка). Координаты y подбирайте под своё лицо: render.py --check предупредит, если текст лёг на лицо или вышел из безопасной зоны.",
+ "video": {"work": "work", "eye_line": "auto", "max_reframe": 1.15,
+           "grade": {"contrast": 1.06, "saturation": 1.08, "vignette": 0.18}},
+ "output": "out/example_reel.mp4",
+ "elements": [
+  {"id": "hook", "type": "text", "hook": true, "text": "3 ОШИБКИ", "start": 0.0, "end": 3.0,
+   "x": 498, "y": 1185, "size": 130, "weight": "black", "accent": ["3"], "accent_color": "#FFD23F",
+   "anim": {"mode": "word_bounce", "dir": "up", "io": "both"}, "bounce": {"io": "in"},
+   "glow": {"radius": 22, "exposure": 0.8, "outer": "#FFB347"}, "shadow": true},
+  {"id": "hook_sub", "type": "text", "text": "из-за которых рилсы не смотрят", "start": 0.35, "end": 3.0,
+   "x": 498, "y": 1330, "size": 52, "weight": "semibold", "max_width": 700,
+   "anim": {"mode": "letter", "dir": "up", "io": "both"}, "shadow": {"long": 0.3, "strength": 0.5}, "sfx": false},
+  {"id": "subs", "type": "subs", "start": 3.25, "end": 14.9, "y": 1455, "size": 58, "max_width": 640,
+   "max_words": 3, "modes": ["word", "word_bounce", "letter"], "dirs": ["up", "left", "right", "down"],
+   "karaoke": true, "accent_color": "#FFD23F", "shadow": true},
+  {"id": "card_dark", "type": "card", "text": "01 · Слабый хук", "start": 3.35, "end": 5.3,
+   "x": 498, "y": 1210, "size": 70, "anim": {"mode": "word", "dir": "left", "io": "both"},
+   "glass": {"light_angle": -50}, "shadow": {"long": 0.15, "strength": 0.4}, "sfx": "card"},
+  {"id": "card_light", "type": "card", "text": "02 · Кнопки закрывают текст", "start": 5.8, "end": 9.0,
+   "x": 498, "y": 1220, "size": 62, "max_width": 640, "color": "#0B1A2A", "accent": ["кнопки"], "accent_color": "#0A84FF",
+   "anim": {"mode": "word_bounce", "dir": "right", "io": "both"}, "bounce": {"io": "both"},
+   "glass": {"tint": "#FFFFFF", "tint_opacity": 0.42, "brightness": 0.1, "chroma": 1.0}, "shadow": false,
+   "sfx": {"in": "card_02", "out": "down", "gain": -1}},
+  {"id": "t3", "type": "text", "text": "НЕТ ДВИЖЕНИЯ", "start": 9.3, "end": 11.3,
+   "x": 498, "y": 1190, "size": 92, "weight": "black",
+   "anim": {"mode": "letter", "dir": "down", "out_dir": "up", "io": "both"},
+   "glow": {"radius": 18, "color": "#FF6B6B", "outer": "#FF2E63", "exposure": 0.9}, "shadow": true},
+  {"id": "count", "type": "counter", "from": 0, "to": 200, "prefix": "+", "suffix": "%", "count_dur": 1.4,
+   "start": 11.6, "end": 14.9, "x": 498, "y": 1170, "size": 150, "weight": "black", "color": "#FFD23F",
+   "anim": {"mode": "word", "dir": "up", "io": "in"}, "bounce": {"io": "in"},
+   "glow": {"radius": 26, "exposure": 0.95}, "shadow": true},
+  {"id": "count_label", "type": "text", "text": "охватов", "start": 11.9, "end": 14.9, "x": 498, "y": 1320,
+   "size": 60, "weight": "semibold", "anim": {"mode": "word", "dir": "right", "io": "out"}, "bounce": {"io": "out"},
+   "sfx": false}
+ ],
+ "zooms": [
+  {"start": 0.0, "end": 0.7, "scale": 1.12, "ease": "punch", "out": 0.5},
+  {"start": 1.75, "end": 2.3, "scale": 1.07, "ease": "punch", "out": 0.35},
+  {"start": 3.9, "end": 5.0, "scale": 1.1, "ease": "smooth", "out": 0.3},
+  {"start": 8.3, "end": 8.9, "scale": 1.08, "ease": "punch", "out": 0.3},
+  {"start": 11.6, "end": 14.9, "scale": 1.12, "ease": "creep", "out": 0}
+ ],
+ "transitions": [
+  {"at": 3.3, "type": "flash", "dur": 0.3},
+  {"at": 4.4, "type": "luma", "dur": 0.4, "sfx": false},
+  {"at": 5.367, "type": "whip", "dir": "left", "dur": 0.34, "riser": true},
+  {"at": 6.6, "type": "blur", "dur": 0.36, "sfx": false},
+  {"at": 7.75, "type": "slide", "dir": "up", "dur": 0.34},
+  {"at": 9.2, "type": "glitch", "dur": 0.3},
+  {"at": 10.433, "type": "zoom_in", "dur": 0.4},
+  {"at": 11.5, "type": "spin", "dir": "right", "dur": 0.36},
+  {"at": 12.6, "type": "zoom_out", "dur": 0.36, "sfx": false},
+  {"at": 13.4, "type": "shake", "dur": 0.5}
+ ],
+ "sfx": [
+  {"t": 13.05, "role": "shine"},
+  {"t": 14.3, "file": "snap_01", "gain": -2}
+ ],
+ "audio": {"sfx_gain_db": -3, "pitch_jitter": 1.2, "vol_jitter_db": 1.5, "seed": 7}
+}

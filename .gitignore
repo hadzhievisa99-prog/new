@@ -1,0 +1,5 @@
+# full skill package and demo render (contain third-party sound pack audio) — not for a public repo
+aushev-reels.zip
+aushev-reels-demo.mp4
+aushev-reels/assets/sounds/*.ogg
+__pycache__/

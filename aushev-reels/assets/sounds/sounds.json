@@ -1,0 +1,297 @@
+{
+ "opening_01": {
+  "role": "opening",
+  "dur": 3.0,
+  "source": "Impact sounds/Impact, Sub, Drop.wav"
+ },
+ "opening_02": {
+  "role": "opening",
+  "dur": 3.0,
+  "source": "Impact sounds/Импакт - @saeedreels.wav"
+ },
+ "opening_03": {
+  "role": "opening",
+  "dur": 4.0,
+  "source": "Impact sounds/Riser, Bang, Impact.wav"
+ },
+ "opening_04": {
+  "role": "opening",
+  "dur": 2.6,
+  "source": "Other sounds/Boom 3.wav"
+ },
+ "opening_05": {
+  "role": "opening",
+  "dur": 2.5,
+  "source": "Impact sounds/Middle Impact.wav"
+ },
+ "title_01": {
+  "role": "title",
+  "dur": 0.578,
+  "source": "Woosh sounds/Short whoose_10.mp3"
+ },
+ "title_02": {
+  "role": "title",
+  "dur": 0.644,
+  "source": "Woosh sounds/Whoosh 4.wav"
+ },
+ "title_03": {
+  "role": "title",
+  "dur": 0.576,
+  "source": "Woosh sounds/Вжух(6).mp3"
+ },
+ "title_04": {
+  "role": "title",
+  "dur": 0.78,
+  "source": "Woosh sounds/Deep, Mini, Whoosh (2).wav"
+ },
+ "title_05": {
+  "role": "title",
+  "dur": 1.2,
+  "source": "Woosh sounds/Deep, Mini, Whoosh (4).wav"
+ },
+ "title_06": {
+  "role": "title",
+  "dur": 1.2,
+  "source": "Woosh sounds/Deep, Mini, Whoosh (6).wav"
+ },
+ "title_07": {
+  "role": "title",
+  "dur": 1.082,
+  "source": "Woosh sounds/Deep, Mini, Whoosh (9).wav"
+ },
+ "small_01": {
+  "role": "small",
+  "dur": 0.118,
+  "source": "Button 🔘/Mouse Click 1.wav"
+ },
+ "small_02": {
+  "role": "small",
+  "dur": 0.189,
+  "source": "Button 🔘/mouse click 2.wav"
+ },
+ "small_03": {
+  "role": "small",
+  "dur": 0.185,
+  "source": "Button 🔘/old mouse click.wav"
+ },
+ "small_04": {
+  "role": "small",
+  "dur": 0.237,
+  "source": "Saas sounds/Granular, Button, Select   (6).wav"
+ },
+ "small_05": {
+  "role": "small",
+  "dur": 0.385,
+  "source": "Saas sounds/Granular, Button, Select   (7).wav"
+ },
+ "small_06": {
+  "role": "small",
+  "dur": 0.325,
+  "source": "Saas sounds/Granular, Button, Select   (17).wav"
+ },
+ "small_07": {
+  "role": "small",
+  "dur": 0.14,
+  "source": "UI sounds/SFX- Ui01.mp3"
+ },
+ "card_01": {
+  "role": "card",
+  "dur": 0.098,
+  "source": "UI sounds/ui-pop-up-2-197887.mp3"
+ },
+ "card_02": {
+  "role": "card",
+  "dur": 0.538,
+  "source": "Saas sounds/Pop-up (5).wav"
+ },
+ "card_03": {
+  "role": "card",
+  "dur": 0.27,
+  "source": "Saas sounds/AM - SCI FI CLICK 4.MP3"
+ },
+ "card_04": {
+  "role": "card",
+  "dur": 0.363,
+  "source": "UI sounds/Ui 5.wav"
+ },
+ "card_05": {
+  "role": "card",
+  "dur": 0.529,
+  "source": "Other sounds/Lamination.wav"
+ },
+ "trans_01": {
+  "role": "trans",
+  "dur": 0.9,
+  "source": "Woosh sounds/Deep, Mini, Whoosh (1).wav"
+ },
+ "trans_02": {
+  "role": "trans",
+  "dur": 0.392,
+  "source": "Woosh sounds/Deep, Mini, Whoosh (13).wav"
+ },
+ "trans_03": {
+  "role": "trans",
+  "dur": 0.663,
+  "source": "Woosh sounds/Deep, Mini, Whoosh (14).wav"
+ },
+ "trans_04": {
+  "role": "trans",
+  "dur": 0.745,
+  "source": "Woosh sounds/Deep, Mini, Whoosh (15).wav"
+ },
+ "trans_05": {
+  "role": "trans",
+  "dur": 1.139,
+  "source": "Woosh sounds/Deep, Mini, Whoosh (3).wav"
+ },
+ "trans_06": {
+  "role": "trans",
+  "dur": 0.333,
+  "source": "Button 🔘/свуш кибер @nmntzh.mp3"
+ },
+ "trans_07": {
+  "role": "trans",
+  "dur": 0.577,
+  "source": "Glitch sounds/Glitch (1).wav"
+ },
+ "trans_08": {
+  "role": "trans",
+  "dur": 0.546,
+  "source": "Glitch sounds/Glitch (3).wav"
+ },
+ "hit_01": {
+  "role": "hit",
+  "dur": 2.0,
+  "source": "Impact sounds/Impact 1.wav"
+ },
+ "hit_02": {
+  "role": "hit",
+  "dur": 2.2,
+  "source": "Impact sounds/IMPACT FILM (1).wav"
+ },
+ "hit_03": {
+  "role": "hit",
+  "dur": 1.8,
+  "source": "Other sounds/Boom 5.wav"
+ },
+ "hit_04": {
+  "role": "hit",
+  "dur": 0.381,
+  "source": "Other sounds/Drop.wav"
+ },
+ "hit_05": {
+  "role": "hit",
+  "dur": 0.748,
+  "source": "Other sounds/Camera Shutter 2.wav"
+ },
+ "shine_01": {
+  "role": "shine",
+  "dur": 2.2,
+  "source": "Other sounds/Shine.wav"
+ },
+ "shine_02": {
+  "role": "shine",
+  "dur": 2.0,
+  "source": "Saas sounds/Granular Shine (45).wav"
+ },
+ "shine_03": {
+  "role": "shine",
+  "dur": 1.4,
+  "source": "Other sounds/Anime star .wav"
+ },
+ "key_01": {
+  "role": "key",
+  "dur": 0.072,
+  "source": "Button 🔘/Typing.wav"
+ },
+ "key_02": {
+  "role": "key",
+  "dur": 0.183,
+  "source": "Button 🔘/Keyboard Spacebar.wav"
+ },
+ "key_03": {
+  "role": "key",
+  "dur": 0.277,
+  "source": "Button 🔘/Enter.wav"
+ },
+ "key_04": {
+  "role": "key",
+  "dur": 0.191,
+  "source": "Button 🔘/BackSpace.wav"
+ },
+ "key_05": {
+  "role": "key",
+  "dur": 2.5,
+  "source": "Button 🔘/печатание.mp3"
+ },
+ "riser_01": {
+  "role": "riser",
+  "dur": 0.521,
+  "source": "Riser sounds/Riser Fast.wav"
+ },
+ "riser_02": {
+  "role": "riser",
+  "dur": 2.299,
+  "source": "Riser sounds/Короткий Райзер - @saeedreels.mp3"
+ },
+ "riser_03": {
+  "role": "riser",
+  "dur": 2.2,
+  "source": "Riser sounds/SMOOTH RISER (1).mp3"
+ },
+ "riser_04": {
+  "role": "riser",
+  "dur": 0.795,
+  "source": "Riser sounds/Bass, Sharp Detail Riser .mp3"
+ },
+ "riser_05": {
+  "role": "riser",
+  "dur": 3.0,
+  "source": "Riser sounds/Райзер - @saeedreels.mp3"
+ },
+ "snap_01": {
+  "role": "snap",
+  "dur": 0.058,
+  "source": "Other sounds/Snap with echo.mp3"
+ },
+ "snap_02": {
+  "role": "snap",
+  "dur": 0.738,
+  "source": "UI sounds/Ui Click_Snap.mp3"
+ },
+ "snap_03": {
+  "role": "snap",
+  "dur": 0.318,
+  "source": "Button 🔘/01 рост - резина by nmntzh.mp3"
+ },
+ "snap_04": {
+  "role": "snap",
+  "dur": 0.099,
+  "source": "Button 🔘/On Of Switch.wav"
+ },
+ "snap_05": {
+  "role": "snap",
+  "dur": 0.065,
+  "source": "Button 🔘/Lamp Switch.wav"
+ },
+ "down_01": {
+  "role": "down",
+  "dur": 0.698,
+  "source": "Countdown & List ⏱️/Mini list down.wav"
+ },
+ "down_02": {
+  "role": "down",
+  "dur": 0.815,
+  "source": "Countdown & List ⏱️/Mini list down _3.wav"
+ },
+ "down_03": {
+  "role": "down",
+  "dur": 2.5,
+  "source": "Impact sounds/Impact, Wobbler, Sub, Drop.wav"
+ },
+ "down_04": {
+  "role": "down",
+  "dur": 0.611,
+  "source": "Saas sounds/Error, Button, Message, Negative (4).wav"
+ }
+}
