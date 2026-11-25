@@ -69,7 +69,7 @@ def collect_events(plan, elements):
 
     for el in elements:
         s = el.get("sfx", "auto")
-        if el.get("_from_subs") and s == "auto":
+        if (el.get("_from_subs") or el["type"] == "bg") and s == "auto":
             continue
         t_in = el["start"] + (0.0 if el.get("hook") else 0.02)
         if isinstance(s, dict):

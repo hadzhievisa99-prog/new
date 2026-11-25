@@ -272,3 +272,55 @@ def glass(frame, cx, cy, hw, hh, p, scale=1.0, rot=0.0, opacity=1.0):
     a = mask * (opacity * p["opacity"])
     bg *= (1 - a)
     bg += out * a
+
+
+# ------------------------------------------------------------------ motion-graphics background
+class BgElement:
+    """Full-frame animated background ('type': 'bg') for explainer moments, black gaps, B-roll holes.
+
+    {"type": "bg", "start", "end", "colors": ["#0B1020", "#1B2550"], "blobs": ["#2F6BFF", "#00D1B2"],
+     "grid": true, "fade": 0.25, "opacity": 1.0}
+    """
+
+    def __init__(self, el):
+        self.el = el
+        c = el.get("colors") or ["#0B1020", "#1A2148"]
+        self.c1 = np.array(hex_rgb(c[0]), np.float32) / 255
+        self.c2 = np.array(hex_rgb(c[-1]), np.float32) / 255
+        self.blobs = [np.array(hex_rgb(b), np.float32) / 255 for b in (el.get("blobs") or ["#2F6BFF", "#00D1B2"])]
+        self._base = None
+
+    def extents(self):
+        return None
+
+    def draw(self, frame, t):
+        e = self.el
+        if t < e["start"] or t >= e["end"]:
+            return
+        H, W = frame.shape[:2]
+        h, w = H // 4, W // 4
+        if self._base is None:
+            ys = np.linspace(0, 1, h, dtype=np.float32)[:, None, None]
+            self._base = (self.c1 * (1 - ys) + self.c2 * ys) * np.ones((1, w, 1), np.float32)
+            yy, xx = np.mgrid[0:h, 0:w].astype(np.float32)
+            self._yy, self._xx = yy, xx
+        img = self._base.copy()
+        tt = t - e["start"]
+        for i, col in enumerate(self.blobs):          # slowly drifting light blobs
+            cx = w * (0.5 + 0.32 * math.sin(0.35 * tt + i * 2.1))
+            cy = h * (0.45 + 0.28 * math.cos(0.27 * tt + i * 1.3))
+            r2 = ((self._xx - cx) / (w * 0.45)) ** 2 + ((self._yy - cy) / (h * 0.3)) ** 2
+            img += np.exp(-r2 * 1.6)[..., None] * col * 0.55
+        img = cv2.resize(img, (W, H), interpolation=cv2.INTER_LINEAR)
+        if e.get("grid", True):                       # faint tech grid, slowly scrolling
+            step = 90
+            off = int(tt * 18) % step
+            g = np.zeros((H, W), np.float32)
+            g[(np.arange(H) + off) % step == 0, :] = 1
+            g[:, np.arange(W) % step == 0] = 1
+            img += cv2.GaussianBlur(g, (0, 0), 0.8)[..., None] * 0.05
+        img = 1 - np.exp(-img * 1.2)                  # soft tonemap
+        fd = float(e.get("fade", 0.25))
+        a = float(e.get("opacity", 1.0)) * min(1.0, tt / fd if fd else 1, (e["end"] - t) / fd if fd else 1)
+        frame *= (1 - a)
+        frame += img.astype(np.float32) * a

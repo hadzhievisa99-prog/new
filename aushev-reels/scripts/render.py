@@ -24,6 +24,7 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from common import FPS, H, SAFE, W, Budget, load_json, save_json, work_paths, SOUNDS_DIR  # noqa: E402
 from camera import Camera, Timeline  # noqa: E402
 from text import TextElement  # noqa: E402
+from fx import BgElement  # noqa: E402
 import audio  # noqa: E402
 
 CHUNK = 2.0
@@ -40,7 +41,7 @@ VERSION = _code_version()
 MODES = {"word", "letter", "word_bounce"}
 DIRS = {"up", "down", "left", "right"}
 IOS = {"in", "out", "both"}
-TYPES = {"text", "card", "counter", "subs"}
+TYPES = {"text", "card", "counter", "subs", "bg"}
 TRANS = {"whip", "slide", "zoom_in", "zoom_out", "spin", "glitch", "flash", "blur", "shake", "luma"}
 
 
@@ -113,7 +114,7 @@ def expand(plan, timeline, words_src):
     for el in els:
         if el["type"] == "card":
             el.setdefault("glass", True)
-    return sorted(els, key=lambda e: (e.get("z", 0), e["start"]))
+    return sorted(els, key=lambda e: (e.get("z", -100 if e["type"] == "bg" else 0), e["start"]))
 
 
 class Project:
@@ -130,7 +131,7 @@ class Project:
         self.elements = expand(self.plan, self.timeline, wj.get("words", []))
         self.dur = float(self.plan["video"].get("duration") or self.timeline.dur)
         self.cam = Camera(self.plan, self.meta, self.track, self.timeline)
-        self.renderers = [TextElement(e) for e in self.elements]
+        self.renderers = [BgElement(e) if e["type"] == "bg" else TextElement(e) for e in self.elements]
         self.n_frames = int(round(self.dur * FPS))
 
     # ---------------------------------------------------------------- checks
@@ -175,6 +176,9 @@ class Project:
                 if box is None:
                     continue
                 tm = (el["start"] + el["end"]) / 2
+                if any(b["type"] == "bg" and b["start"] <= tm < b["end"] and b.get("opacity", 1.0) >= 0.95
+                       for b in self.elements):
+                    continue                     # a full background hides the speaker here
                 fb = self.face_box(tm)
                 ix = max(0, min(box[2], fb[2]) - max(box[0], fb[0]))
                 iy = max(0, min(box[3], fb[3]) - max(box[1], fb[1]))

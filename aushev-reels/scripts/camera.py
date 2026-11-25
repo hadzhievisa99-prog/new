@@ -187,7 +187,9 @@ class Camera:
                 if (pk < 0) != (p < 0):        # never blend across the cut
                     pk = -1e-4 if p < 0 else 0.0
                 M = (self.trans_matrix(kind, pk, tr) @ Mb)[:2]
-                fr = cv2.warpAffine(img, M, (W, H), flags=cv2.INTER_LINEAR, borderMode=cv2.BORDER_REFLECT_101)
+                # whips/slides continue the frame like a film strip (no upside-down mirror), others mirror edges
+                border = cv2.BORDER_WRAP if kind in ("whip", "slide") else cv2.BORDER_REFLECT_101
+                fr = cv2.warpAffine(img, M, (W, H), flags=cv2.INTER_LINEAR, borderMode=border)
                 acc = fr.astype(np.float32) if acc is None else acc + fr
             out = acc / (nsub * 255.0)
         else:
